@@ -1,10 +1,8 @@
-// Challenge.cpp : Este arquivo contém a função 'main'. A execução do programa começa e termina ali.
-//
-
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include "Domain.hpp"
 #include "Services.hpp"
+#include "gtest/gtest.h"
 
 using json = nlohmann::json;
 
@@ -52,7 +50,7 @@ std::vector<std::vector<Domain::Transaction>> get_transactions() {
 	return transactions;
 }
 
-int main()
+int main(int argc, char** argv)
 {
 	Services::ApplicationCore app;
 
@@ -62,4 +60,7 @@ int main()
 	{
 		std::cout << line << std::endl;
 	}
+
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
