@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Challenge.CLI.Tests": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

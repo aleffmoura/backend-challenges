@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  challenge_cli:
+    image: challenge_cli
+    build:
+      context: .
+      dockerfile: CLI/Dockerfile
+  challenge_cli_tests:
+    image: challenge_cli_tests
+    build:
+      context: .
+      dockerfile: Tests/Dockerfile
