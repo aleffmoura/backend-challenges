@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Challenge.CLI": {
+      "commandName": "Project"
+    }
+  }
+}
