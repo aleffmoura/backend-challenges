@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "d4700c33-e1a5-4854-bb91-e344eb7c0cf3",
+		"name": "BookStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4904150"
+	},
+	"item": [
+		{
+			"name": "Patch",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/aleff/OneDrive/Imagens/testes no linux.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:53650/Books/0b413150-8b0d-48a5-9c60-f29cd0057489",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "53650",
+					"path": [
+						"Books",
+						"0b413150-8b0d-48a5-9c60-f29cd0057489"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:53650/Books/e99ca5ce-f7f1-4e28-ac43-e514eacc016f",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "53650",
+					"path": [
+						"Books",
+						"e99ca5ce-f7f1-4e28-ac43-e514eacc016f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:53650/Books",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "53650",
+					"path": [
+						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"author\": \"string\",\r\n  \"title\": \"string\",\r\n  \"releaseData\": \"2023-12-01T20:56:37.960Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:53650/Books",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "53650",
+					"path": [
+						"Books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"author\": \"Aleff\",\r\n  \"title\": \"Um titulo bacana\",\r\n  \"releaseData\": \"2023-12-01T20:56:57.287Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:53650/Books/e99ca5ce-f7f1-4e28-ac43-e514eacc016f",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "53650",
+					"path": [
+						"Books",
+						"e99ca5ce-f7f1-4e28-ac43-e514eacc016f"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

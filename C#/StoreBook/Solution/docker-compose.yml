@@ -1,0 +1,36 @@
+version: '3.4'
+
+networks:
+  servicos:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
+        
+volumes:
+  esdata1:
+    driver: local
+
+services:
+  bookstore.sqlserver:    
+    image: mcr.microsoft.com/mssql/server
+    container_name: "bookstore.sqlserver"
+    hostname: "bookstore.sqlserver"
+    restart: always
+    networks:
+      servicos:
+        ipv4_address: 172.19.0.2
+    environment:
+      SA_PASSWORD: B00kSt0r3
+      ACCEPT_EULA: Y
+      MSSQL_PID: Express
+      TZ: "America/Sao_Paulo"    
+    ports:
+      - "1433:1433"
+  managementbook.api:
+    networks:
+      - servicos
+    image: ${DOCKER_REGISTRY-}managementbookapi
+    build:
+      context: .
+      dockerfile: ManagementBook.Api/Dockerfile

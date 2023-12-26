@@ -1,0 +1,147 @@
+﻿<Window x:Class="Totten.Solutions.WolfMonitor.WpfApp.Screens.Archives.ArchiveDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Totten.Solutions.WolfMonitor.WpfApp.Screens.Archives"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Detalhes do arquivo" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False"
+        Width="900" Height="800" FontFamily="Poppins" Background="Transparent" Foreground="White">
+    <Window.Resources>
+        <SolidColorBrush x:Key="SolidBorderBrush" Color="#888" />
+
+        <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
+
+        <SolidColorBrush x:Key="DisabledBorderBrush" Color="#AAA" />
+
+        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
+
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border 
+                                Name="Border"
+                                Margin="0,0,-4,0" 
+                                Background="#909090"
+                                BorderBrush="{StaticResource  SolidBorderBrush}" 
+                                BorderThickness="1,1,1,1" 
+                                CornerRadius="2,12,0,0" >
+                                <ContentPresenter x:Name="ContentSite"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    ContentSource="Header"
+                                    Margin="12,2,12,2"
+                                    RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100" />
+                                <Setter TargetName="Border" Property="Background" Value="#181818" />
+                                <Setter Property="Foreground" Value="#065FD4" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
+                            </Trigger>
+
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="Panel.ZIndex" Value="100" />
+                                <Setter TargetName="Border" Property="Background" Value="#000000" />
+                                <Setter Property="Foreground" Value="#909090" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledBackgroundBrush}" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />
+                                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+
+        <StackPanel Orientation="Vertical" Margin="5,10">
+
+            <TextBlock x:Name="lblDisplayName" Text="File SQL SERVER" FontSize="36" FontWeight="Bold"/>
+            <Separator Margin="0,5,0,10"/>
+
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Text="Nome completo:" FontSize="13"/>
+                <TextBlock x:Name="lblName" Text="/home/aesir/docs/files" Margin="13,0" FontSize="13"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Text="Ultima atualização:" FontSize="13"/>
+                <TextBlock Text="04/10/1994 15:00" x:Name="lblMonitoredAt" Margin="5,0" FontSize="13"/>
+            </StackPanel>
+
+
+            <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" FontSize="15" Margin="0,10,5,10" >
+                <TabItem Header="Valor Atual" >
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="btnEdit" Margin="5" Click="btnModified_Click" ToolTip="Editar" HorizontalContentAlignment="Left" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Background="#065FD4" BorderBrush="#065FD4">
+                                <materialDesign:PackIcon Kind="Edit" x:Name="kindEdit"/>
+                            </Button>
+                            <Button Margin="5" x:Name="btnCancel" Click="btnCancel_Click" Visibility="Collapsed" ToolTip="Cancelar edição" HorizontalContentAlignment="Left" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Background="#065FD4" BorderBrush="#065FD4">
+                                <materialDesign:PackIcon Kind="FileCancel" />
+                            </Button>
+                        </StackPanel>
+                        <TextBox Foreground="Black" x:Name="txtNotePad" IsReadOnly="True" Height="550" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Hidden"/>
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem Header="Histórico de modificações">
+                    <Grid>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <DataGrid x:Name="gridHistoric" CanUserAddRows="False" Width="880" Height="530" ItemsSource="{Binding}" AutoGenerateColumns="False" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Identificador" Width="250" Binding="{Binding Id}"/>
+                                    <DataGridTextColumn Header="Valor" Width="340" Binding="{Binding Value}" />
+                                    <DataGridTextColumn Header="Data e Hora" Binding="{Binding MonitoredAt}" SortDirection="Ascending" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Solicitações de usuários">
+                    <Grid>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2">
+                            <DataGrid x:Name="gridSolicitations" CanUserAddRows="False" Width="880" Height="530" ItemsSource="{Binding}" AutoGenerateColumns="False" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Id" Width="140" Binding="{Binding Id}"/>
+                                    <DataGridTextColumn Header="Nome do usuário" Width="130" Binding="{Binding User}"/>
+                                    <DataGridTextColumn Header="Email do usuário" Width="150" Binding="{Binding UserEmail}" />
+                                    <DataGridTextColumn Header="Solicitação" Width="100" Binding="{Binding SolicitationType}" />
+                                    <DataGridTextColumn Header="Valor" Width="100" Binding="{Binding Value}" />
+                                    <DataGridTextColumn Header="Data" Binding="{Binding CreateAt}" SortDirection="Descending" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+
+
+            <Grid Margin="0,0,5,5" x:Name="pnlBottom">
+                <Button x:Name="btnPrevPage" Click="btnPrevPage_Click" IsEnabled="False" ToolTip="Página anterior" HorizontalContentAlignment="Left" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Background="#065FD4" BorderBrush="#065FD4">
+                    <materialDesign:PackIcon Kind="NavigateBefore"/>
+                </Button>
+
+                <Button x:Name="btnActualPage" ToolTip="Página atual" Content="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Cursor="Arrow" Background="#065FD4" BorderBrush="#065FD4"/>
+
+                <Button x:Name="btnNextPage" Click="btnNextPage_Click" ToolTip="Próxima página" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#065FD4" BorderBrush="#065FD4">
+                    <materialDesign:PackIcon Kind="NavigateNext"/>
+                </Button>
+            </Grid>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

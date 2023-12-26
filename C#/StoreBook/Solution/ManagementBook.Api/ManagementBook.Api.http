@@ -1,0 +1,6 @@
+@ManagementBook.Api_HostAddress = http://localhost:5082
+
+GET {{ManagementBook.Api_HostAddress}}/books/
+Accept: application/json
+
+###
